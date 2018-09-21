@@ -1,11 +1,13 @@
-load('/nfs/ug/homes-2/c/chenliy5/Desktop/ECE367/PS1/PS01_dataSet/wordVecV.mat')
+load('/nfs/ug/homes-2/c/chenliy5/Desktop/Matrix Algebra/PS1/PS01_dataSet/wordVecV.mat')
 dsize = size(V,2);
 tsize = size(V,1);
 
 %p1.8-(a)
+fprintf('a)\n');
 [a1,a2,a3,a4] = min_distantce(V);
 
 %p1.8-(b)
+fprintf('b)\n');
 sum_fterm = sum(V,1);
 Vd_norm = V;
 
@@ -15,6 +17,7 @@ end
 [b1,b2,b3,b4] = min_distantce(Vd_norm);
 
 %p1.8-(c)
+fprintf('c)\n');
 fdot=zeros(1,tsize);
 for row=1:tsize
     for col=1:dsize

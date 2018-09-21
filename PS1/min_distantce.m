@@ -34,6 +34,12 @@ end
 
 distanceCopy = (distance + diag(Inf(size(diag(distance)))));    % put Inf on diagonal
 %[~,ndx] = min(distanceCopy);                   % get the linear index of the minimum value
-[d3,d4] = find(distanceCopy==min(distanceCopy(:)));
+misdistance=min(distanceCopy(:));
+[d3,d4] = find(distanceCopy==misdistance);
 
+
+fprintf('%dth and %dth are closest in Euclidean distance\n', d3(1), d3(2));
+fprintf('The smallest Euclidean distance is %.4f\n', misdistance);
+fprintf('%dth and %dth are closest in angle distance\n', d1, d2);
+fprintf('The smallest angle distance is %.4f\n', angle);
 end

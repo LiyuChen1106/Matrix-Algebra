@@ -29,7 +29,7 @@ indt = find(t);
 f_grad2 = [dx(indt) dy(indt)];
 gradX = linespace(1,2);
 tangentX = linespace(-1,1);
-
+slo
 gradY = dy(indt)/dx(indt)*gradX 
 %plot(xx,ylim,'b--o');
 hold off;

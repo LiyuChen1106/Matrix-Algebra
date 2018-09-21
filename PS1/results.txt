@@ -1,0 +1,18 @@
+1.8----------------------------------------
+a)
+8th and 7th are closest in Euclidean distance
+The smallest Euclidean distance is 24.7184
+10th and 9th are closest in angle distance
+The smallest angle distance is 0.5327
+b)
+10th and 9th are closest in Euclidean distance
+The smallest Euclidean distance is 0.0643
+10th and 9th are closest in angle distance
+The smallest angle distance is 0.5327
+c)
+10th and 9th are closest in Euclidean distance
+The smallest Euclidean distance is 0.0821
+10th and 8th are closest in angle distance
+The smallest angle distance is 1.1948
+
+1.9-----------------------------------------
