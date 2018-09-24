@@ -11,11 +11,11 @@ plotContour(x,y,f2,2);
 plotContour(x,y,f3,3);
 
 figure(2)
-plotTangentPlane(x,y,f1);
-figure(3)
-plotTangentPlane(x,y,f2);
-figure(4)
-plotTangentPlane(x,y,f3);
+plotTangentPlane(x,y,f1,1);
+
+plotTangentPlane(x,y,f2,2);
+
+plotTangentPlane(x,y,f3,3);
 
 function plotContour(x,y,f,subPlotInd)
 subplot(1,3,subPlotInd);
@@ -43,7 +43,8 @@ ylabel('y');
 hold off;
 end
 
-function plotTangentPlane(x,y,f)
+function plotTangentPlane(x,y,f,subPlotInd)
+subplot(1,3,subPlotInd);
 surf(x,y,f)
 hold on
 
@@ -55,4 +56,7 @@ indt = find(t);
 f_grad = [dx(indt) dy(indt)];
 f_plane=f(indt)+f_grad(1)*(x-1)+f_grad(2)*y;
 surf(x,y,f_plane);
+xlabel('x');
+ylabel('y');
+zlabel('z');
 end
