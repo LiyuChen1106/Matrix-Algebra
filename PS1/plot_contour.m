@@ -1,4 +1,4 @@
-function [] = plot_contour(x,y,f)
+1function [] = plot_contour(x,y,f)
 close all; clc;
 %surf(x,y,f)
 %hold on
