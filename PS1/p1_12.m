@@ -6,28 +6,73 @@ v0 = [-2 -4]'; % offset
 v = [-2 5]'; % slope
 t=linspace(-3,3);
 
-A = v(2)/v(1)*t + v0(2)/v0(1);
+A=-v.*t+v0;
+
+
 figure;
 
-drawArrow = @(j,k) quiver(j(1),j(2),k(1),k(2),0);
-drawArrow(origin,x); 
+axis equal;
+%l2 norm
+subplot(1,3,1);
+xlabel('x');
+ylabel('y');
 text(3,2,'x');
 hold on
-plot(t, A); hold on;
+plot(A(1,:), A(2,:));
+axis equal;
+l2_norm=sqrt(dot(A-x,A-x));
+[~,ind2]=min(l2_norm);
+drawcircle(x(1, :), x(2, :), l2_norm(ind2))
+plot(A(1,ind2),A(2,ind2),'o');
 
-syms alpha;
-l2_norm=sqrt((v(2)/v(1)*(t) + v0(2)/v0(1)-2).^2+(t-3).^2);
-[~,ind]=min(l2_norm);
-drawcircle(x(1, :), x(2, :), l2_norm(ind))
-axis equal
+%l1 norm
+subplot(1,3,2);
+xlabel('x');
+ylabel('y');
+text(3,2,'x');
 hold on
-y_norm2=[12/29 28/29];
-plot(12/29,28/29,'x');
+plot(A(1,:), A(2,:));
+axis equal;
+l1_norm=sum(abs(A-x));
+[~,ind1]=min(l1_norm);
+drawdiamond(x(1, :), x(2, :), l1_norm(ind1))
+plot(A(1,ind1),A(2,ind1),'o');
+
+%linf norm
+subplot(1,3,3);
+xlabel('x');
+ylabel('y');
+text(3,2,'x');
+hold on
+plot(A(1,:), A(2,:));
+axis equal;
+linf_norm=max(abs(A-x));
+[~,ind_inf]=min(linf_norm);
+drawsquare(x(1, :), x(2, :), linf_norm(ind_inf))
+plot(A(1,ind_inf),A(2,ind_inf),'o');
 
 
 function drawcircle(x,y,r)
+%(x,y) -center
+%r - radius
 th = 0:pi/50:2*pi;
 xunit = r * cos(th) + x;
 yunit = r * sin(th) + y;
 plot(xunit, yunit);
+end
+
+function drawdiamond(x,y,r)
+%(x,y) -center
+%r - from center to vertices
+ver=[x-r y;x y-r;x+r y;x y+r];
+pgon=polyshape(ver);
+plot(pgon);
+end
+
+function drawsquare(x,y,r)
+%(x,y) -center
+%r - from center to 4 sides
+ver=[x-r y+r;x-r y-r;x+r y-r;x+r y+r];
+pgon=polyshape(ver);
+plot(pgon);
 end

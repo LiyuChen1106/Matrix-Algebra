@@ -40,6 +40,8 @@ text(-1,1,'Proj_A_1(x1)');
 
 xlim([-2 3])
 ylim([-2 2])
+xlabel('x');
+ylabel('y');
 axis equal
 hold on
 
