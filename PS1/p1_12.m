@@ -9,11 +9,9 @@ t=linspace(-3,3);
 A=-v.*t+v0;
 
 
-figure;
+figure(1);
 
-axis equal;
 %l2 norm
-subplot(1,3,1);
 xlabel('x');
 ylabel('y');
 text(3,2,'x');
@@ -24,9 +22,13 @@ l2_norm=sqrt(dot(A-x,A-x));
 [~,ind2]=min(l2_norm);
 drawcircle(x(1, :), x(2, :), l2_norm(ind2))
 plot(A(1,ind2),A(2,ind2),'o');
+axis equal;
+axis([-15 15 -15 15])
+title('l2 norm ball');
 
+figure(2);
 %l1 norm
-subplot(1,3,2);
+subplot(1,2,1);
 xlabel('x');
 ylabel('y');
 text(3,2,'x');
@@ -37,9 +39,12 @@ l1_norm=sum(abs(A-x));
 [~,ind1]=min(l1_norm);
 drawdiamond(x(1, :), x(2, :), l1_norm(ind1))
 plot(A(1,ind1),A(2,ind1),'o');
+axis equal;
+axis([-15 15 -15 15])
+title('l1 norm ball');
 
 %linf norm
-subplot(1,3,3);
+subplot(1,2,2);
 xlabel('x');
 ylabel('y');
 text(3,2,'x');
@@ -50,7 +55,9 @@ linf_norm=max(abs(A-x));
 [~,ind_inf]=min(linf_norm);
 drawsquare(x(1, :), x(2, :), linf_norm(ind_inf))
 plot(A(1,ind_inf),A(2,ind_inf),'o');
-
+axis equal;
+axis([-15 15 -15 15])
+title('linf norm ball');
 
 function drawcircle(x,y,r)
 %(x,y) -center
