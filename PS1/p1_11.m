@@ -11,8 +11,26 @@ B_unnorm = sin (2* pi* fundFreq *( harmonics'* time_pos )) /2; %% generate the b
 %(a)
 figure(1)
 plot(time_pos,sq_wave);
+xlabel('time ops');
+ylabel('sq wave');
 
 %(b)
 figure(2)
+basis_6 = B_unnorm(6, :);
+basis_30 = B_unnorm(30, :);
+subplot(1, 2, 1)
+plot(time_pos, basis_6);
+xlabel('time ops');
+ylabel('sq wave');
+title('first 6 basis vectors')
+axis([0 20 -1 1]);
+hold on
+subplot(1, 2, 2)
+plot(time_pos, basis_30);
+xlabel('time ops');
+ylabel('sq wave');
+title('first 30 basis vectors')
+axis([0 20 -1 1]);
+%ortho = basis_v6*basis_v30'
 
 %end
