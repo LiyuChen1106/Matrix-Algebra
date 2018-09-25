@@ -11,7 +11,7 @@ A=-v.*t+v0;
 
 figure(1);
 
-%l2 norm
+%l2 norm--------------------------------------
 xlabel('x');
 ylabel('y');
 plot(3,2,'o');
@@ -29,7 +29,7 @@ axis([-15 15 -15 15])
 title('l2 norm ball');
 
 figure(2);
-%l1 norm
+%l1 norm-------------------------------------------------
 subplot(1,2,1);
 xlabel('x');
 ylabel('y');
@@ -47,7 +47,7 @@ axis equal;
 axis([-15 15 -15 15])
 title('l1 norm ball');
 
-%linf norm
+%linf norm------------------------------------------
 subplot(1,2,2);
 xlabel('x');
 ylabel('y');
@@ -64,6 +64,12 @@ text(A(1,ind2)-2,A(2,ind2),'y_(_2_)');
 axis equal;
 axis([-15 15 -15 15])
 title('linf norm ball');
+
+%(e)------------------------------------------------
+[y1,r]=proj_cvx(x,v0,v,1);
+[yinf,r]=proj_cvx(x,v0,v,inf);
+y1
+yinf
 
 function drawcircle(x,y,r)
 %(x,y) -center
@@ -88,4 +94,16 @@ function drawsquare(x,y,r)
 ver=[x-r y+r;x-r y-r;x+r y-r;x+r y+r];
 pgon=polyshape(ver);
 plot(pgon);
+end
+
+function [y, r] = proj_cvx (x, v0 , v, nrm)%% x, v0 and v must be column vectors
+objtv = @(y) norm (x-y, nrm); %% objective is L_2 norm
+cvx_begin
+variable y(2) %% 2-d variable we are optimizing over
+variable t(1) %% real valued parameter that defines
+minimize ( objtv (y)) %% defining the objective
+subject to
+v0 + t*v == y %% the projection y must be in set A
+cvx_end
+r = objtv (y); %% minimum value of the objective
 end

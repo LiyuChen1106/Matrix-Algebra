@@ -1,4 +1,4 @@
-%function [ time_pos , sq_wave , B_unnorm ] = generate_data
+function [ time_pos , sq_wave , B_unnorm ] = generate_data
 close all; clc;
 n_comps = 30; 
 period = 10; 
@@ -8,13 +8,11 @@ harmonics = 2*(1: n_comps ) -1;
 sq_wave = floor (0.9* sin (2* pi* fundFreq * time_pos )) +.5; %% generate the signal
 B_unnorm = sin (2* pi* fundFreq *( harmonics'* time_pos )) /2; %% generate the basis
 
-%(a)
 figure(1)
 plot(time_pos,sq_wave);
 xlabel('time ops');
 ylabel('sq wave');
 
-%(b)
 figure(2)
 basis_1 = B_unnorm(1, :);
 basis_2 = B_unnorm(2, :);
@@ -78,6 +76,32 @@ ylabel('sq wave');
 title('30th basis vectors')
 axis([0 20 -1 1]);
 hold on
-%ortho = basis_v6*basis_v30'
 
-%end
+figure(2)
+norm_B_unnorm=B_unnorm;
+for i=1:size(B_unnorm,1)
+norm_B_unnorm(i,:)=B_unnorm(i,:)/norm(B_unnorm(i,:));
+end
+
+coeff = zeros(size(B_unnorm,1),1);
+for i = 1:size(B_unnorm,1)
+    coeff(i,:) = dot(sq_wave,B_unnorm(i,:)/dot(B_unnorm(i,:),B_unnorm(i,:)));
+end
+[~,coeff_i]=sort(coeff);
+
+approx = 0;
+for i = 1:6
+    [B_ind, ~] = find(coeff_i==i);
+    approx = approx+ coeff(i, :) *B_unnorm(B_ind, :);
+end
+[B_ind, ~] = find(30);
+approx = approx+ coeff(30, :) *B_unnorm(B_ind, :);
+
+plot(time_pos, approx);
+hold on
+plot(time_pos, sq_wave);
+xlabel('time op');
+ylabel('sq wave');
+title('Approximation');
+
+end
