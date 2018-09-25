@@ -14,7 +14,8 @@ figure(1);
 %l2 norm
 xlabel('x');
 ylabel('y');
-text(3,2,'x');
+plot(3,2,'o');
+text(3.5,2,'x');
 hold on
 plot(A(1,:), A(2,:));
 axis equal;
@@ -22,6 +23,7 @@ l2_norm=sqrt(dot(A-x,A-x));
 [~,ind2]=min(l2_norm);
 drawcircle(x(1, :), x(2, :), l2_norm(ind2))
 plot(A(1,ind2),A(2,ind2),'o');
+text(A(1,ind2)-2,A(2,ind2),'y_(_2_)');
 axis equal;
 axis([-15 15 -15 15])
 title('l2 norm ball');
@@ -31,7 +33,8 @@ figure(2);
 subplot(1,2,1);
 xlabel('x');
 ylabel('y');
-text(3,2,'x');
+plot(3,2,'o');
+text(3.5,2,'x');
 hold on
 plot(A(1,:), A(2,:));
 axis equal;
@@ -39,6 +42,7 @@ l1_norm=sum(abs(A-x));
 [~,ind1]=min(l1_norm);
 drawdiamond(x(1, :), x(2, :), l1_norm(ind1))
 plot(A(1,ind1),A(2,ind1),'o');
+text(A(1,ind2)-2,A(2,ind2),'y_(_2_)');
 axis equal;
 axis([-15 15 -15 15])
 title('l1 norm ball');
@@ -47,7 +51,8 @@ title('l1 norm ball');
 subplot(1,2,2);
 xlabel('x');
 ylabel('y');
-text(3,2,'x');
+plot(3,2,'o');
+text(3.5,2,'x');
 hold on
 plot(A(1,:), A(2,:));
 axis equal;
@@ -55,6 +60,7 @@ linf_norm=max(abs(A-x));
 [~,ind_inf]=min(linf_norm);
 drawsquare(x(1, :), x(2, :), linf_norm(ind_inf))
 plot(A(1,ind_inf),A(2,ind_inf),'o');
+text(A(1,ind2)-2,A(2,ind2),'y_(_2_)');
 axis equal;
 axis([-15 15 -15 15])
 title('linf norm ball');
