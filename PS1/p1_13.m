@@ -18,28 +18,33 @@ Q=V;
 for i=1:6
     if(i>1)
         for j=1:i-1
-            innerprod = int(V(i)*Q(j),-pi,pi);
+            innerprod = innerprod_(V(i),Q(j));%int(V(i)*Q(j),-pi,pi);
             Q(i,1)=Q(i,1)-innerprod*Q(j);
         end
     end
-    norm=sqrt(int(Q(i)*Q(i),-pi,pi));
+    norm=sqrt(innerprod_(Q(i),Q(i)));
     Q(i)=Q(i)/norm;
 end
 %Q
 %Q_norm
 
+bb=innerprod_(sin(x),Q(1))/innerprod_(Q(1),Q(1))
+
 %(b)
 E=Q;
 for i=1:6
-    proj=int(U*Q(i),-pi,pi)*Q(i);
+    proj=innerprod_(U,Q(i))*Q(i);
     %proj
     %func=(U-Q(i))*Q_norm(i);
     %proj=dot(U,Q(i))*Q(i);
     E(i)=int((U-proj)*Q(i),-pi,pi)==0;
 end
 
-E
-[G,H]= equationsToMatrix(E, [a0,a1,a2,a3,a4,a5]);
+function e = innerprod_(v_,q_)
+e=int(v_*q_,-pi,pi);
+end
+%{E
+%[G,H]= equationsToMatrix(E, [a0,a1,a2,a3,a4,a5]);
 %G
 %H
-[A,R]= linsolve(G,H)
+%[A,R]= linsolve(G,H)
