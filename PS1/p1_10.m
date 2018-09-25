@@ -47,30 +47,25 @@ hold on
 
 
 %(d)%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-a1=[0;1;2;0;0];
-a2=[1;3;0;1;0];
-a3=[0;1;5;0;1];
-
-q1=a1/norm(a1);
-q2_t=a2-dot(q1,a2)*q1;
-q2=q2_t/norm(q2_t);
-q3_t=a3-dot(q1,a3)*q1-dot(q2,a3)*q2;
-q3=q3_t/norm(q3_t);
 
 x3=[3;0;-1;2;2];
 b3=[-1;0;1;-2;1];
-Q=[q1 q2 q3];
-syms t1 t2 t3 t1_a t2_a t3_a;
-E_V=[t1;t2;t3];
-E_A=[t1;t2;t3];
-for i=1:3
-    E_V(i)= dot(x3,Q(:,i)) == t1*dot(Q(:,i),Q(:,1))+t2*dot(Q(:,i),Q(:,2))+t3*dot(Q(:,i),Q(:,3));
-end
-for i=1:3
-    E_A(i)= dot(x3,Q(:,i)) == t1_a*dot(Q(:,i),Q(:,1))+t2_a*dot(Q(:,i),Q(:,2))+t3_a*dot(Q(:,i),Q(:,3))+dot(Q(:,i),b3);
-end
-[G_V,H_V]= equationsToMatrix(E_V, [t1,t2,t3]);
-A_V= linsolve(G_V,H_V);
+v1_d=[0;1;2;0;0];
+v2_d=[1;3;0;1;0];
+v3_d=[0;1;5;0;1];
+subspace = [v1_d, v2_d, v3_d];
 
-[G_A,H_A]= equationsToMatrix(E_A, [t1_a,t2_a,t3_a]);
-A_A= linsolve(G_A,H_A);
+ortho_basis = gramschmidt(subspace);
+v1_ortho = ortho_basis(:, 1);
+v2_ortho = ortho_basis(:, 2);
+v3_ortho = ortho_basis(:, 3);
+disp('orthonormal basis')
+disp(ortho_basis)
+
+proj_x_onV = proj_v(x3, v1_ortho) + proj_v(x3, v2_ortho) + proj_v(x3, v3_ortho);
+disp('projecting onto orthonormal basis')
+disp(proj_x_onV)
+
+proj_x_onA = proj_v(x3 - b3, v1_ortho) + proj_v(x3 - b3, v2_ortho) + proj_v(x3 - b3, v3_ortho) + b3;
+disp('projecting onto orthonomral affine')
+disp(proj_x_onA)
