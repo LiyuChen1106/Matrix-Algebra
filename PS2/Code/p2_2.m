@@ -37,17 +37,24 @@ function plotQuadApprox(x,y,v1,v2,f,g,h,subPlotInd)
 subplot(1,3,subPlotInd);
 V = [x,y]';
 V0 = [v1,v2]';
-f_v0 = subs(f,[x,y],[1,0]);
-g_v0 = subs(g,[x,y],[1,0]);
-h_v0 = subs(h,[x,y],[1,0]);
+f_v0 = subs(f,[x,y],[v1,v2]);
+g_v0 = subs(g,[x,y],[v1,v2]);
+h_v0 = subs(h,[x,y],[v1,v2]);
 
 f_approx = f_v0 + g_v0'*(V-V0) + 0.5*(V-V0)'*h_v0*(V-V0);
 
-ezsurf(x,y,f);
+p1 = ezsurf(x,y,f);
+set(p1,'facealpha',0.5)
+set(p1,'edgealpha',0.5)
+axis([-2 3.5 -2 3.5 -30 30])
 hold on
-ezsurf(x,y,f_approx);
+p2 = ezsurf(x,y,f_approx);
+set(p2,'facealpha',0.6)
+set(p2,'edgealpha',0.6)
+axis([-2 3.5 -2 3.5 -30 30])
 
 xlabel('x');
 ylabel('y');
 zlabel('z');
+title(sprintf('Approximation of f%d at [%.1f, %.1f]', subPlotInd, v1, v2));
 end
