@@ -23,8 +23,10 @@ C = X*X';
 [U_sort, lambda_sort] = sortem(U, lambda);
 
 lambda_j = diag(lambda_sort);
-%figure(1)
-%plot([1:d],log(lambda_j));
+figure(1)
+plot([1:d],log(lambda_j));
+xlabel('j');
+ylabel('log(lambda_j)')
 
 %(c)--------------------------------------------------------------------
 U_eigenfaces = zeros([32,32,d]);
@@ -33,16 +35,21 @@ for i = 1:d
     U_eigenfaces(:,:,i) = reshape(U_sort(:,i),[32,32]);
 end
 
-%figure(2)
+figure(2)
+
 for j = 1:10
-    %subplot(2,10,j)
-    %imshow(U_eigenfaces(:,:,j)*20);
+    subplot(2,10,j)
+    imshow(U_eigenfaces(:,:,j)*20);
+    
 end
+title('largest 10 eigenfaces')
 
 for j = 1015:1024
-    %subplot(2,10,j-1004)
-    %imshow(U_eigenfaces(:,:,j)*20);
+    subplot(2,10,j-1004)
+    imshow(U_eigenfaces(:,:,j)*20);
+    
 end
+title('smallest 10 eigenfaces')
 
 %(d)--------------------------------------------------------------------
 I_i = [1, 1076, 2043];
@@ -67,10 +74,10 @@ for i = 1:size(Y,2)
    Y_reshape(:,:,i) = reshape(Y(:,i),[32,32]); 
 end
 
-%figure(3)
+figure(3)
 for i = 1:size(Y,2)
-    %subplot(3,10,i)
-    %imshow(U_eigenfaces(:,:,i)*20);
+    subplot(3,10,i)
+    imshow(U_eigenfaces(:,:,i)*20);
 end
 
 %(e)--------------------------------------------------------------------
@@ -93,6 +100,8 @@ for i = 1:6
         distance(i,j) = norm(c_i - c_j);
     end
 end
+disp(proj_coeff)
+disp(distance)
 
 function [P2,D2]=sortem(P,D)
 % this function takes in two matrices P and D, presumably the output 
