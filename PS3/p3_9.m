@@ -77,7 +77,7 @@ end
 figure(3)
 for i = 1:size(Y,2)
     subplot(3,10,i)
-    imshow(U_eigenfaces(:,:,i)*20);
+    imshow(Y_reshape(:,:,i) / 255);
 end
 
 %(e)--------------------------------------------------------------------
