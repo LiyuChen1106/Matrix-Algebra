@@ -37,7 +37,7 @@ plotforce(p_n_linf, A_x, b)
 
 function plotforce (p_n, A_x, b)
     subplot(1, 4, 1)
-    plot(p_n)
+    plot(0:1:10, [p_n(1); p_n])
     hold on 
     title('optimal force')
 
@@ -51,19 +51,19 @@ function plotforce (p_n, A_x, b)
     end
 
     subplot(1, 4, 2)
-    plot(X(1, :))
+    plot(0:1:10, [0 X(1, :)])
     hold on 
     title('optimal distance')
     subplot(1, 4, 3)
-    plot(X(2, :))
+    plot(0:1:10, [0 X(2, :)])
     hold on 
     title('optimal velocity')
     subplot(1, 4, 4)
-    plot(p_n)
+    plot(0:1:10, [p_n(1); p_n])
     hold on 
-    plot(X(1, :))
+    plot(0:1:10, [0 X(1, :)])
     hold on
-    plot(X(2, :))
+    plot(0:1:10, [0 X(2, :)])
     title('plots together')
     legend('optimal force','optimal distance', 'optimal velocity')
 end
